@@ -1,0 +1,11 @@
+human_detector/
+│
+├── app.py
+├── requirements.txt
+├── uploads/               ← для загружаемых файлов
+├── static/                ← для обработанных файлов
+├── templates/
+│   ├── upload.html
+│   └── result.html
+└── detection/
+    └── detect.py          ← фейковая обработка "YOLO"
