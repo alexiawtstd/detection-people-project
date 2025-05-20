@@ -1,0 +1,98 @@
+#style.css
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom right, #cfa7e4, #b3e0ff);
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  max-width: 1000px;
+  margin: 50px auto;
+  background: linear-gradient(135deg, #e26792, #741caa);
+  border-radius: 30px;
+  padding: 40px;
+  color: white;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.left {
+  flex: 1;
+  min-width: 280px;
+}
+
+.right {
+  flex: 1;
+  min-width: 280px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.instruction {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 15px 20px;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+.instruction b {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.instruction ol, .instruction ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.buttons {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  background: #ffb85e;
+  border: none;
+  border-radius: 15px;
+  padding: 12px 25px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 200px;
+}
+
+button:hover {
+  background: #ffa433;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: 20px;
+    margin: 20px;
+  }
+
+  .left, .right {
+    min-width: auto;
+  }
+}
