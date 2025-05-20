@@ -9,3 +9,183 @@
 4. Хранение массивов пользовательских изображений (вероятно, будет раскадровка видео, чтобы хранить кадры) в базе данных (SQLite + SQLAlchemy)
 5. Логирование запросов
 6. Простой API на Flask
+
+ИНФА ПО ПРОЕКТУ
+Краткое описание: Веб-сервис для детекции людей на фото и предсказание их траектории движения на видео с использованием YOLOv8 и хранением пользовательских данных.
+
+Вот что делается в процессе работы вебсервиса:
+1. Пользователь загружает файл → Frontend отправляет его на POST /upload.
+
+2. Backend (app.py) → сохраняет файл, вызывает detect.py.
+
+3. YOLOv8 обрабатывает файл → рисует bbox'ы/траектории → сохраняет результат.
+
+4. SQLite записывает данные о запросе (database.py).
+
+5. Frontend получает результат → показывает его в result.html.
+
+СТРУКТУРА ПРОЕКТА (на основе файлов в гитхабе от Кати)
+project/  
+├── static/  
+│   ├── results/          # Обработанные фото/видео  
+│   └── uploads/          # Исходные файлы  
+├── templates/  
+│   ├── upload.html       # Страница загрузки  
+│   ├── result.html       # Результат  
+│   └── history.html      # История запросов  
+├── app.py                # Flask-сервер  
+├── detect.py             # YOLOv8 логика  
+├── database.py           # SQLite + SQLAlchemy  
+└── requirements.txt      # Зависимости  
+
+Конкретно по каждому аспекту:
+
+1. Frontend
+Файлы: upload.html, result.html, history.html
+
+1) Загрузка фото/видео через <input type="file"> → отправляет на /upload (Flask).
+
+2) Показ результата: фото с bbox'ами или видео с траекториями.
+
+3) Кнопка «История» → запрос к /history (список прошлых обработок из SQLite).
+
+Связи:
+→ POST /upload (Backend)
+→ GET /history (Backend + SQLite)
+
+
+2. Backend (Flask)
+Файлы: app.py, requirements.txt
+
+1) POST /upload
+
+Принимает файл → сохраняет в uploads/.
+
+Запускает detect.py (YOLOv8).
+
+Возвращает путь к результату (например, static/results/photo_processed.jpg).
+
+2) GET /history
+
+Достаёт из SQLite список всех загруженных файлов + даты.
+
+Связи:
+→ detect.py (YOLOv8)
+→ database.py (SQLite)
+
+3. YOLOv8 (Детекция + Траектории)
+Файлы: detect.py, cpp.txt (если есть C++ код для ускорения)
+Что делает:
+
+Для фото: Рисует bbox'ы вокруг людей.
+
+Для видео: Предсказывает траектории (векторы движения).
+
+Сохраняет результат в static/results/.
+
+Связи:
+→ Получает файл из app.py → возвращает обработанный файл.
+
+4. База данных (SQLite + SQLAlchemy)
+Файлы: database.py
+Что делает:
+
+1) Логирует запросы:
+
+filename, result_path, timestamp.
+
+2) Хранит раскадровки видео:
+
+Кадры из видео → таблица frames.
+
+Связи:
+→ app.py (логирование)
+→ history.html (показ истории).
+Вот что делается в процессе работы вебсервиса:
+1. Пользователь загружает файл → Frontend отправляет его на POST /upload.
+
+2. Backend (app.py) → сохраняет файл, вызывает detect.py.
+
+3. YOLOv8 обрабатывает файл → рисует bbox'ы/траектории → сохраняет результат.
+
+4. SQLite записывает данные о запросе (database.py).
+
+5. Frontend получает результат → показывает его в result.html.
+
+СТРУКТУРА ПРОЕКТА
+project/  
+├── static/  
+│   ├── results/          # Обработанные фото/видео  
+│   └── uploads/          # Исходные файлы  
+├── templates/  
+│   ├── upload.html       # Страница загрузки  
+│   ├── result.html       # Результат  
+│   └── history.html      # История запросов  
+├── app.py                # Flask-сервер  
+├── detect.py             # YOLOv8 логика  
+├── database.py           # SQLite + SQLAlchemy  
+└── requirements.txt      # Зависимости  
+
+Конкретно по каждому аспекту:
+
+1. Frontend
+Файлы: upload.html, result.html, history.html
+
+1) Загрузка фото/видео через <input type="file"> → отправляет на /upload (Flask).
+
+2) Показ результата: фото с bbox'ами или видео с траекториями.
+
+3) Кнопка «История» → запрос к /history (список прошлых обработок из SQLite).
+
+Связи:
+→ POST /upload (Backend)
+→ GET /history (Backend + SQLite)
+
+
+2. Backend (Flask)
+Файлы: app.py, requirements.txt
+
+1) POST /upload
+
+Принимает файл → сохраняет в uploads/.
+
+Запускает detect.py (YOLOv8).
+
+Возвращает путь к результату (например, static/results/photo_processed.jpg).
+
+2) GET /history
+
+Достаёт из SQLite список всех загруженных файлов + даты.
+
+Связи:
+→ detect.py (YOLOv8)
+→ database.py (SQLite)
+
+3. YOLOv8 (Детекция + Траектории)
+Файлы: detect.py, cpp.txt (если есть C++ код для ускорения)
+Что делает:
+
+Для фото: Рисует bbox'ы вокруг людей.
+
+Для видео: Предсказывает траектории (векторы движения).
+
+Сохраняет результат в static/results/.
+
+Связи:
+→ Получает файл из app.py → возвращает обработанный файл.
+
+4. База данных (SQLite + SQLAlchemy)
+Файлы: database.py
+Что делает:
+
+1) Логирует запросы:
+
+filename, result_path, timestamp.
+
+2) Хранит раскадровки видео:
+
+Кадры из видео → таблица frames.
+
+Связи:
+→ app.py (логирование)
+→ history.html (показ истории).
