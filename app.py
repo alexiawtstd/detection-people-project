@@ -1,7 +1,9 @@
+
 # app.py
 import os
 from flask import Flask, request, render_template, redirect, url_for
 from detection.detect import detect_people
+
 
 # Создаем Flask-приложение
 app = Flask(__name__)
@@ -30,13 +32,13 @@ def upload_file():
 
         # Обработка файла — вернёт путь, число людей и время обработки.
         # Все эти данные приходят из функции detect_people(), которая определена в detect.py
-        result_path, count, time = detect_people(filepath)
+        processed_path, people_count, processing_time = detect_people(filepath)
 
         # Передаем результат в шаблон result.html, чтобы он мог отобразить его пользователю
         return render_template('result.html',
-                               result_image=os.path.basename(result_path),
-                               count=count,
-                               time=time)
+                               processed_path=os.path.basename(processed_path),
+                               people_count=people_count,
+                               processing_time=processing_time)
     # Если пришел GET-запрос, то открывается форма загрузок
     return render_template('upload.html')
 
