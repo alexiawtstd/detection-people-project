@@ -42,10 +42,11 @@ def upload_file():
     # Если пришел GET-запрос, то открывается форма загрузок
     return render_template('upload.html')
 
-#@app.route('/history')
-#def history():
-#    records = Detection.query.order_by(Detection.timestamp.desc()).all()
-#    return render_template('history.html', records=records)
+@app.route('/history')
+def history():
+   # records = Detection.query.order_by(Detection.timestamp.desc()).all()
+   # return render_template('history.html', records=records)
+   return render_template('history.html')
 
 # Запуск сервера в режиме разработки
 if __name__ == '__main__':
