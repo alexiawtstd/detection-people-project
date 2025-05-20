@@ -4,9 +4,11 @@ human_detector/
 ├── requirements.txt
 ├── uploads/               ← для загружаемых файлов
 ├── static/                ← для обработанных файлов
-|   └──style.css
+|   ├──style.css
+|   └──history.css
 ├── templates/
 │   ├── upload.html
-│   └── result.html
+│   ├── result.html
+|   └──history.html
 └── detection/
     └── detect.py          ← фейковая обработка "YOLO"
