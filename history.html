@@ -1,53 +1,35 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>История загрузок</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 90%;
-            margin: 20px auto;
-        }
-        th, td {
-            padding: 10px;
-            border: 1px solid #999;
-            text-align: center;
-        }
-        th {
-            background-color: #f0f0f0;
-        }
-        h1 {
-            text-align: center;
-        }
-        a {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>История запросов</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='history.css') }}" />
 </head>
 <body>
-    <h1>История обработанных файлов</h1>
+  <div class="history-container">
+    <h1>История запросов:</h1>
     <table>
+      <thead>
         <tr>
-            <th>ID</th>
-            <th>Имя файла</th>
-            <th>Количество людей</th>
-            <th>Время обработки (сек)</th>
-            <th>Дата и время загрузки</th>
+          <th>Загруженный файл</th>
+          <th>Обработанный файл</th>
+          <th>Результаты обработки</th>
         </tr>
-        {% for record in records %}
+      </thead>
+      <tbody>
         <tr>
-            <td>{{ record.id }}</td>
-            <td>{{ record.filename }}</td>
-            <td>{{ record.people_count }}</td>
-            <td>{{ record.processing_time }}</td>
-            <td>{{ record.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+          <td></td><td></td><td></td>
         </tr>
-        {% endfor %}
+        <tr>
+          <td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td></td><td></td><td></td>
+        </tr>
+      </tbody>
     </table>
-
-    <a href="{{ url_for('upload_file') }}">⬅ Назад к загрузке</a>
+    <a href="{{ url_for('upload_file') }}" class="back-button">Вернуться на главную страницу</a>
+  </div>
 </body>
 </html>
