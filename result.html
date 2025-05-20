@@ -14,7 +14,9 @@
       <div class="instruction">
         <b>Статистика:</b>
         <ul style="list-style-type: none; padding-left: 0;">
-          <li>Обнаружено людей: <b>{{ people_count }}</b></li>
+          {% if processed_path.endswith('.jpg') %}
+            <li>Обнаружено людей: <b>{{ people_count }}</b></li>
+          {% endif %}
           <li>Время обработки: <b>{{ processing_time }} сек.</b></li>
         </ul>
       </div>
