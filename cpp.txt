@@ -4,6 +4,7 @@ human_detector/
 ├── requirements.txt
 ├── uploads/               ← для загружаемых файлов
 ├── static/                ← для обработанных файлов
+|   └──style.css
 ├── templates/
 │   ├── upload.html
 │   └── result.html
