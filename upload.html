@@ -1,13 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-  <title>Загрузка файла</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Детектор людей на фото/видео</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
-  <h1>Загрузите фото или видео</h1>
-  <form method="POST" enctype="multipart/form-data">
-    <input type="file" name="file" accept="image/*,video/*" required>
-    <input type="submit" value="Загрузить">
-  </form>
+  <div class="container">
+    <div class="left">
+      <p>Сервис для<br>
+        автоматического подсчета<br>
+        количества людей<br>
+        на фотографиях и видео</p>
+      <p>Как он работает?<br>
+        Мы используем современные<br>
+        алгоритмы компьютерного зрения</p>
+      <div class="instruction">
+        <b>Как пользоваться сайтом:</b>
+        <ol>
+          <li>Выберите фото или видео</li>
+          <li>Загрузите файл на сайт</li>
+          <li>Получите результат с количеством людей</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="right">
+      <h1>ДЕТЕКТОР<br>ЛЮДЕЙ НА<br>ФОТО/ВИДЕО</h1>
+      <form id="uploadForm" method="POST" enctype="multipart/form-data" action="{{ url_for('upload_file') }}">
+        <div class="buttons">
+          <input type="file" id="fileInput" name="file" accept="image/*,video/*" style="display: none;">
+          <button type="button" onclick="document.getElementById('fileInput').click()">Выбрать файл</button>
+          <button type="submit" id="uploadBtn">Загрузить файл</button>
+          <button type="button" onclick="showHistory()">Показать историю</button>
+          <div id="fileName" style="margin-top: 10px; font-size: 14px;"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Показываем имя выбранного файла
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+      const fileNameDiv = document.getElementById('fileName');
+      if (this.files.length > 0) {
+        fileNameDiv.textContent = 'Выбран файл: ' + this.files[0].name;
+        fileNameDiv.style.color = '#fff';
+      } else {
+        fileNameDiv.textContent = 'Файл не выбран';
+        fileNameDiv.style.color = '#ffb85e';
+      }
+    });
+
+    // Показываем историю (заглушка)
+    function showHistory() {
+      alert("История загрузок будет доступна в будущих версиях");
+    }
+
+    // Проверка перед загрузкой
+    document.getElementById('uploadForm').addEventListener('submit', function(e) {
+      const fileInput = document.getElementById('fileInput');
+      if (fileInput.files.length === 0) {
+        e.preventDefault();
+        alert('Пожалуйста, выберите файл перед загрузкой');
+      }
+    });
+  </script>
 </body>
 </html>
