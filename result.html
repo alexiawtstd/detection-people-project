@@ -9,8 +9,8 @@
 <body>
   <div class="container">
     <div class="left">
-      <p>Результат анализа<br>
-        вашего файла</p>
+      <p style="font-size: 30px; text-align: center"><b>Результат анализа<br>
+        вашего файла</b></p>
       <div class="instruction">
         <b>Статистика:</b>
         <ul style="list-style-type: none; padding-left: 0;">
@@ -27,7 +27,7 @@
     </div>
 
     <div class="right">
-      <h1>РЕЗУЛЬТАТ<br>АНАЛИЗА</h1>
+      <h1>Ваш файл:<br></h1>
       <div style="background: rgba(255, 255, 255, 0.15); padding: 20px; border-radius: 20px;">
         {% if processed_path.endswith('.jpg') %}
           <img src="{{ url_for('static', filename=processed_path) }}"
