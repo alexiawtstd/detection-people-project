@@ -4,6 +4,7 @@ CREATE TABLE media_files (
     filepath TEXT NOT NULL,
     file_type TEXT NOT NULL,  -- 'photo' или 'video'
     upload_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ALTER TABLE media_files ADD COLUMN original_filepath TEXT NOT NULL DEFAULT '';
     processing_time REAL,  -- время обработки в секундах
     width INTEGER,
     height INTEGER,
