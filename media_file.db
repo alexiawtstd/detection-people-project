@@ -1,0 +1,13 @@
+CREATE TABLE media_files (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    filename TEXT NOT NULL,
+    filepath TEXT NOT NULL,
+    file_type TEXT NOT NULL,  -- 'photo' или 'video'
+    upload_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    processing_time REAL,  -- время обработки в секундах
+    width INTEGER,
+    height INTEGER,
+    duration REAL,  -- для видео: длительность в секундах
+    frame_count INTEGER,  -- для видео: количество кадров
+    status TEXT DEFAULT 'processed'  -- 'uploaded', 'processing', 'processed', 'failed'
+);
