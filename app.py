@@ -1,8 +1,9 @@
-
 # app.py
 import os
 from flask import Flask, request, render_template, redirect, url_for
 from detection.detect import detect_people
+from database import Session, MediaFile
+
 
 
 # Создаем Flask-приложение
@@ -34,6 +35,27 @@ def upload_file():
         # Все эти данные приходят из функции detect_people(), которая определена в detect.py
         processed_path, people_count, processing_time = detect_people(filepath)
 
+        # Определяем тип файла
+        file_ext = os.path.splitext(file.filename)[1].lower()
+        file_type = 'photo' if file_ext in ['.jpg', '.jpeg', '.png'] else 'video'
+
+
+        session = Session()
+        media = MediaFile(
+            filename=file.filename,
+            filepath=os.path.basename(processed_path),
+            file_type=file_type,  # или 'video', если определяешь автоматически
+            processing_time=processing_time,
+            people_count=people_count if file_type == 'photo' else None,
+            width=None,  # если знаешь — заполни, иначе оставь None
+            height=None,
+            duration=None,
+            frame_count=None
+        )
+        session.add(media)
+        session.commit()
+        session.close()
+
         # Передаем результат в шаблон result.html, чтобы он мог отобразить его пользователю
         return render_template('result.html',
                                processed_path=os.path.basename(processed_path),
@@ -44,9 +66,11 @@ def upload_file():
 
 @app.route('/history')
 def history():
-   # records = Detection.query.order_by(Detection.timestamp.desc()).all()
-   # return render_template('history.html', records=records)
-   return render_template('history.html')
+    session = Session()
+    records = session.query(MediaFile).order_by(MediaFile.upload_time.desc()).all()
+    session.close()
+    return render_template('history.html', records=records)
+
 
 # Запуск сервера в режиме разработки
 if __name__ == '__main__':
