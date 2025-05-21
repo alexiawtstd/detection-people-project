@@ -1,6 +1,6 @@
 # app.py
 import os
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, send_from_directory
 from detection.detect import detect_people
 from database import Session, MediaFile
 
@@ -43,15 +43,17 @@ def upload_file():
         session = Session()
         media = MediaFile(
             filename=file.filename,
+            original_filepath=os.path.basename(filepath),
             filepath=os.path.basename(processed_path),
-            file_type=file_type,  # или 'video', если определяешь автоматически
+            file_type=file_type,
             processing_time=processing_time,
             people_count=people_count if file_type == 'photo' else None,
-            width=None,  # если знаешь — заполни, иначе оставь None
+            width=None,
             height=None,
             duration=None,
             frame_count=None
         )
+
         session.add(media)
         session.commit()
         session.close()
@@ -70,6 +72,10 @@ def history():
     records = session.query(MediaFile).order_by(MediaFile.upload_time.desc()).all()
     session.close()
     return render_template('history.html', records=records)
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
 # Запуск сервера в режиме разработки
