@@ -1,0 +1,15 @@
+CREATE TABLE video_analytics (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    media_id INTEGER UNIQUE NOT NULL,
+    duration REAL NOT NULL,
+    frame_count INTEGER NOT NULL,
+    width INTEGER NOT NULL,
+    height INTEGER NOT NULL,
+    fps REAL NOT NULL,
+    format TEXT,                   -- сохраняем оригинальное имя поля в БД
+    file_size INTEGER,
+    processing_time REAL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (media_id) REFERENCES media_files(id)
+
+);
