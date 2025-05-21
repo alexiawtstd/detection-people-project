@@ -18,15 +18,25 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td></td><td></td><td></td>
-        </tr>
-        <tr>
-          <td></td><td></td><td></td>
-        </tr>
-        <tr>
-          <td></td><td></td><td></td>
-        </tr>
+      {% for record in records %}
+      <tr>
+        <td>
+          {% if record.file_type == 'photo' %}
+          <img src="{{ url_for('static', filename=record.filepath.split('/')[-1]) }}" alt="{{ record.filename }}" width="200">
+          {% else %}
+          {{ record.filename }}
+          {% endif %}
+        </td>
+        <td>{{ record.filepath }}</td>
+        <td>
+          Обработка: {{ record.processing_time }} сек.<br/>
+          {% if record.file_type == 'photo' and record.people_count is not none %}
+          Найдено людей: {{ record.people_count }}<br/>
+          {% endif %}
+          Загружено: {{ record.upload_time.strftime("%d.%m.%Y %H:%M:%S") }}
+        </td>
+      </tr>
+      {% endfor %}
       </tbody>
     </table>
     <a href="{{ url_for('upload_file') }}" class="back-button">Вернуться на главную страницу</a>
