@@ -20,14 +20,20 @@
       <tbody>
       {% for record in records %}
       <tr>
-        <td>
-          {% if record.file_type == 'photo' %}
-          <img src="{{ url_for('static', filename=record.filepath.split('/')[-1]) }}" alt="{{ record.filename }}" width="200">
-          {% else %}
-          {{ record.filename }}
-          {% endif %}
-        </td>
-        <td>{{ record.filepath }}</td>
+          <td>
+              {% if record.file_type == 'photo' %}
+              <img src="{{ url_for('uploaded_file', filename=record.filename) }}" alt="{{ record.filename }}" width="200">
+              {% else %}
+              {{ record.filename }}
+              {% endif %}
+          </td>
+          <td>
+              {% if record.file_type == 'photo' %}
+              <img src="{{ url_for('static', filename=record.filepath.split('/')[-1]) }}" alt="Обработано" width="200">
+              {% else %}
+              {{ record.filename }}
+              {% endif %}
+          </td>
         <td>
           Обработка: {{ record.processing_time }} сек.<br/>
           {% if record.file_type == 'photo' and record.people_count is not none %}
