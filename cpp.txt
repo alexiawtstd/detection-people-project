@@ -1,6 +1,9 @@
 human_detector/
 │
 ├── app.py
+├── database.py
+├── media_files.db
+├── video_analytics.db
 ├── requirements.txt
 ├── uploads/               ← для загружаемых файлов
 ├── static/                ← для обработанных файлов
@@ -11,4 +14,4 @@ human_detector/
 │   ├── result.html
 |   └──history.html
 └── detection/
-    └── detect.py          ← фейковая обработка "YOLO"
+    └── detect.py         
