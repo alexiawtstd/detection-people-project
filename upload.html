@@ -8,40 +8,47 @@
 </head>
 <body>
   <div class="container">
-    <div class="left">
-      <p>Сервис для<br>
-        автоматического подсчета<br>
-        количества людей<br>
-        на фотографиях и видео</p>
-      <p>Как он работает?<br>
-        Мы используем современные<br>
-        алгоритмы компьютерного зрения</p>
+    <!-- Основной цветной блок с классом 'main-block' -->
+    <div class="left main-block">
+      <p style="text-indent: 20px;"><b>Веб-сервис</b> для детекции<br>
+      людей на фото и предсказание их<br>
+      траектории движения на видео<br>
+      с использованием <b>YOLOv8</b><br>
+      и хранением пользовательских<br>
+        данных.</p>
+      <p style="text-indent: 20px;"><b>Как он работает?</b><br>
+        Пользователь загружает файл,<br>
+        а нейронная сеть YOLO8 находит<br>
+        объекты в фото или видео и <br>
+        выводит обработанное фото на<br>
+        экран. История запросов<br>
+        сохраняется.</p>
       <div class="instruction">
         <b>Как пользоваться сайтом:</b>
         <ol>
           <li>Выберите фото или видео</li>
           <li>Загрузите файл на сайт</li>
-          <li>Получите результат с количеством людей</li>
+          <li>Получите обработанный файл</li>
         </ol>
       </div>
     </div>
 
+    <!-- Правая часть без изменений -->
     <div class="right">
-      <h1>ДЕТЕКТОР<br>ЛЮДЕЙ НА<br>ФОТО/ВИДЕО</h1>
+      <h1 style="font-size: 40px;">ДЕТЕКТОР<br>ЛЮДЕЙ НА<br>ФОТО/ВИДЕО</h1>
       <form id="uploadForm" method="POST" enctype="multipart/form-data" action="{{ url_for('upload_file') }}">
         <div class="buttons">
           <input type="file" id="fileInput" name="file" accept="image/*,video/*" style="display: none;">
           <button type="button" onclick="document.getElementById('fileInput').click()">Выбрать файл</button>
           <button type="submit" id="uploadBtn">Загрузить файл</button>
           <button type="button" onclick="showHistory()">Показать историю</button>
-          <div id="fileName" style="margin-top: 10px; font-size: 14px;"></div>
+          <div id="fileName" style="font-size: 14px;"></div>
         </div>
       </form>
     </div>
   </div>
 
   <script>
-    // Показываем имя выбранного файла
     document.getElementById('fileInput').addEventListener('change', function(e) {
       const fileNameDiv = document.getElementById('fileName');
       if (this.files.length > 0) {
@@ -52,14 +59,9 @@
         fileNameDiv.style.color = '#ffb85e';
       }
     });
-
-    // Показываем историю (заглушка)
     function showHistory() {
-  window.location.href = "/history";
-  }
-
-
-    // Проверка перед загрузкой
+      window.location.href = "/history";
+    }
     document.getElementById('uploadForm').addEventListener('submit', function(e) {
       const fileInput = document.getElementById('fileInput');
       if (fileInput.files.length === 0) {
