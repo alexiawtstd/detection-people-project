@@ -39,6 +39,11 @@
           {% if record.file_type == 'photo' and record.people_count is not none %}
           Найдено людей: {{ record.people_count }}<br/>
           {% endif %}
+          {% if record.file_type == 'video' %}
+            Длительность: {{ record.duration|round(2) }} сек.<br/>
+            Кадров: {{ record.frame_count }}<br/>
+          {% endif %}
+          Размер файла: {{ (record.file_size /1024 / 1024)|round(2) }} МВ<br/>
           Загружено: {{ record.upload_time.strftime("%d.%m.%Y %H:%M:%S") }}
         </td>
       </tr>
