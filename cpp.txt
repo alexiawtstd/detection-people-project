@@ -3,10 +3,9 @@ human_detector/
 ├── app.py
 ├── database.py
 ├── media_files.db
-├── video_analytics.db
 ├── requirements.txt
-├── uploads/               ← для загружаемых файлов
-├── static/                ← для обработанных файлов
+├── uploads/           
+├── static/              
 |   ├──style.css
 |   ├──styleres.css
 |   └──history.css
