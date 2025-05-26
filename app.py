@@ -53,10 +53,9 @@ def upload_file():
             people_count=people_count if file_type == 'photo' else None,
             duration = duration,
             frame_count = frame_count,
+            file_size = file_size,
             status='processed'
         )
-
-        media.file_size = file_size
 
         session.add(media)
         session.commit()
