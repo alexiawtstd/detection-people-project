@@ -14,11 +14,11 @@ class MediaFile(Base):
     file_type = Column(String, nullable=False)
     upload_time = Column(DateTime, default=datetime.now)
     processing_time = Column(Float)
-    duration = Column(Float) 
-    frame_count = Column(Integer)  
-    people_count = Column(Integer) 
-    file_size = Column(Integer)  
-    status = Column(String, default='processed') 
+    duration = Column(Float)
+    frame_count = Column(Integer)
+    people_count = Column(Integer)
+    file_size = Column(Integer)
+    status = Column(String, default='processed')
 
 
 engine = create_engine('sqlite:///media_analysis.db')
