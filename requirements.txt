@@ -1,5 +1,5 @@
-Flask==2.3.2
-SQLAlchemy==2.0.25
-opencv-python==4.9.0.80
-numpy==1.26.4
-ultralytics==8.1.0
+Flask
+SQLAlchemy
+opencv-python
+numpy
+ultralytics
