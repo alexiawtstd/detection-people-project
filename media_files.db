@@ -8,6 +8,7 @@ CREATE TABLE media_files (
     processing_time REAL,
     duration REAL,
     frame_count INTEGER,
+    people_count INTEGER,
     file_size INTEGER,
     status TEXT DEFAULT 'processed'
 );
